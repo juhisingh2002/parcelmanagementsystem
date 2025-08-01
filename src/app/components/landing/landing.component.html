@@ -1,0 +1,119 @@
+<!-- app.component.html -->
+<div class="landing-container">
+  <!-- Header Section -->
+  <header class="hero-section">
+    <div class="hero-content">
+      <h1 class="hero-title">Welcome to Parcel Management System</h1>
+      <button class="book-now-btn primary-btn" routerLink="/login">Book Now</button>
+    </div>
+    <div class="hero-image">
+      <!-- Background will be handled in CSS -->
+    </div>
+  </header>
+
+  <!-- Services Section -->
+  <section class="services-section">
+    <div class="service-cards">
+      <div class="service-card">
+        <div class="service-icon">
+          <div class="icon-placeholder packers-icon">📦</div>
+        </div>
+        <h3>Packers & Movers</h3>
+        <button class="service-btn" (click)="onServiceClick('Packers & Movers')">→</button>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <div class="icon-placeholder truck-icon">🚛</div>
+        </div>
+        <h3>Trucks</h3>
+        <button class="service-btn" (click)="onServiceClick('Trucks')">→</button>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <div class="icon-placeholder bike-icon">🏍️</div>
+        </div>
+        <h3>Two Wheelers</h3>
+        <button class="service-btn" (click)="onServiceClick('Two Wheelers')">→</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonial Section -->
+  <section class="testimonial-section">
+    <h2>Some words from our happy customers!</h2>
+    <div class="testimonial-card">
+      <div class="customer-info">
+        <div class="customer-avatar">R</div>
+        <div class="customer-details">
+          <h4>Rahul K.</h4>
+          <p class="customer-role">Courier, 5.0 ⭐</p>
+        </div>
+      </div>
+      <p class="testimonial-text">Reliable and efficient service from start to finish.</p>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features-section">
+    <div class="feature-cards">
+      <div class="feature-card">
+        <div class="feature-icon timely-icon">⏰</div>
+        <h3>Timely Deliveries</h3>
+        <p>Choose the mode of delivery, via air or surface, for nitme parcel deliveries</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon door-icon">🚪</div>
+        <h3>Door-to-Door Delivery</h3>
+        <p>Enjoy doorstep pick-up & delivery for you parcels</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon label-icon">🏷️</div>
+        <h3>Shipping Label Printing On Us</h3>
+        <p>We take care of printing shipping labels for you</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <button class="estimate-btn" (click)="onGetEstimate()">Get an Estimate →</button>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>CONTACT</h3>
+        <p>info&#64;parcelapp.com</p>
+        <p>+91 123 456 789</p>
+      </div>
+
+      <div class="footer-section">
+        <h3>QUICK LINKS</h3>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>FOLLOW US</h3>
+        <div class="social-icons">
+          <span class="social-icon">📘</span>
+          <span class="social-icon">🐦</span>
+          <span class="social-icon">📷</span>
+          <span class="social-icon">💼</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>© 2025 ParcelApp. All rights reserved.</p>
+    </div>
+  </footer>
+</div>

@@ -1,0 +1,65 @@
+<div class="register-container">
+  <h2>Register</h2>
+  <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+    <!-- Customer Name -->
+    <mat-form-field appearance="fill">
+      <mat-label>Customer Name</mat-label>
+      <input matInput formControlName="name" maxlength="50" required />
+    </mat-form-field>
+
+    <!-- Email -->
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" type="email" required />
+    </mat-form-field>
+
+    <!-- Mobile -->
+    <div class="mobile-group">
+      <mat-form-field appearance="fill">
+        <mat-label>Country Code</mat-label>
+        <mat-select formControlName="countryCode">
+          <mat-option value="+91">+91</mat-option>
+          <mat-option value="+1">+1</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Mobile Number</mat-label>
+        <input matInput formControlName="mobile" maxlength="10" required />
+      </mat-form-field>
+    </div>
+
+    <!-- Address -->
+    <mat-form-field appearance="fill">
+      <mat-label>Address</mat-label>
+      <textarea matInput formControlName="address"></textarea>
+    </mat-form-field>
+
+    <!-- Password + Confirm -->
+    <mat-form-field appearance="fill">
+      <mat-label>Password</mat-label>
+      <input matInput type="password" formControlName="password" required />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Confirm Password</mat-label>
+      <input matInput type="password" formControlName="confirmPassword" required />
+    </mat-form-field>
+
+    <!-- Preferences -->
+    <mat-form-field appearance="fill">
+      <mat-label>Preferences</mat-label>
+      <textarea matInput formControlName="preferences"></textarea>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit">Register</button>
+    <button mat-button type="reset">Reset</button>
+  </form>
+
+  <div *ngIf="registrationSuccess" class="acknowledgment">
+    <h3 style="color: green;">Customer Registration successful.</h3>
+    <p><strong>Customer ID:</strong> {{generatedId}}</p>
+    <p><strong>Name:</strong> {{registerForm.value.name}}</p>
+    <p><strong>Email:</strong> {{registerForm.value.email}}</p>
+  </div>
+</div>
