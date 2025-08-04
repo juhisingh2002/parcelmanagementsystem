@@ -1,30 +1,73 @@
 <div class="login-container">
-  <h2>Login</h2>
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <mat-form-field appearance="fill">
-      <mat-label>Customer ID</mat-label>
-      <input matInput formControlName="customerId" maxlength="20" />
-      <mat-error *ngIf="loginForm.get('customerId')?.hasError('required')">
-        Customer ID is required
-      </mat-error>
-      <mat-error *ngIf="loginForm.get('customerId')?.hasError('minlength') || loginForm.get('customerId')?.hasError('maxlength')">
-        Must be between 5 and 20 characters
-      </mat-error>
-    </mat-form-field>
+  <div class="login-form">
+    <h1 class="login-title">Log In</h1>
+    
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label class="form-label">Customer ID</label>
+        <input 
+          type="text" 
+          class="form-input" 
+          formControlName="customerId" 
+          placeholder="Customer ID"
+          maxlength="20"
+        />
+        <div class="error-message" *ngIf="loginForm.get('customerId')?.hasError('required') && loginForm.get('customerId')?.touched">
+          Customer ID is required
+        </div>
+        <div class="error-message" *ngIf="(loginForm.get('customerId')?.hasError('minlength') || loginForm.get('customerId')?.hasError('maxlength')) && loginForm.get('customerId')?.touched">
+          Must be between 5 and 20 characters
+        </div>
+      </div>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Password</mat-label>
-      <input matInput formControlName="password" type="password" />
-      <mat-error *ngIf="loginForm.get('password')?.hasError('pattern')">
-        Must have uppercase, lowercase, and special character
-      </mat-error>
-    </mat-form-field>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <div class="password-container">
+          <input 
+            [type]="hidePassword ? 'password' : 'text'" 
+            class="form-input" 
+            formControlName="password" 
+            placeholder="Password"
+          />
+          <button 
+            type="button" 
+            class="password-toggle" 
+            (click)="togglePasswordVisibility()"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" *ngIf="hidePassword"></path>
+              <circle cx="12" cy="12" r="3" *ngIf="hidePassword"></circle>
+              <path d="m1 1 22 22" *ngIf="!hidePassword"></path>
+              <path d="M6.71 6.71C5.68 7.74 4.82 8.94 4.12 10.24A12.07 12.07 0 0 0 1 12s4-8 11-8c1.59 0 3.09.29 4.38.87l-2.24 2.24A4 4 0 0 0 8.71 10.71z" *ngIf="!hidePassword"></path>
+              <path d="M17.29 17.29C18.32 16.26 19.18 15.06 19.88 13.76A12.07 12.07 0 0 0 23 12s-4 8-11 8c-1.59 0-3.09-.29-4.38-.87l2.24-2.24A4 4 0 0 0 15.29 13.29z" *ngIf="!hidePassword"></path>
+            </svg>
+          </button>
+        </div>
+        <div class="error-message" *ngIf="loginForm.get('password')?.hasError('pattern') && loginForm.get('password')?.touched">
+          Must have uppercase, lowercase, and special character
+        </div>
+      </div>
 
-    <button mat-raised-button color="primary" type="submit">Login</button>
-  </form>
+      <div class="user-type-selection">
+        <label class="radio-option">
+          <input type="radio" name="userType" value="customer" formControlName="userType" />
+          <span class="radio-custom"></span>
+          Customer
+        </label>
+        <label class="radio-option">
+          <input type="radio" name="userType" value="officer" formControlName="userType" />
+          <span class="radio-custom"></span>
+          Officer
+        </label>
+      </div>
 
-  <p class="register-link">
-    New user?
-    <a routerLink="/register">Register here</a>
-  </p>
+      <button type="submit" class="login-button" [disabled]="!loginForm.valid">
+        Log In
+      </button>
+    </form>
+
+    <p class="register-link">
+      New User? <a routerLink="/register">Register</a>
+    </p>
+  </div>
 </div>

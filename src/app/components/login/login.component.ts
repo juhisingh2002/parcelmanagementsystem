@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
@@ -14,18 +10,14 @@ import { RouterModule } from '@angular/router';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    RouterModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule
+    RouterModule
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
- 
   loginForm!: FormGroup;
+  hidePassword = true;
 
   constructor(private fb: FormBuilder, private router: Router) {}
 
@@ -36,16 +28,36 @@ export class LoginComponent implements OnInit {
         '',
         [Validators.required, Validators.maxLength(30),
          Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).+$/)]
-      ]
+      ],
+      userType: ['customer', Validators.required] // Default to customer
     });
   }
 
-  onSubmit() {
+  togglePasswordVisibility(): void {
+    this.hidePassword = !this.hidePassword;
+  }
+
+  onSubmit(): void {
     if (this.loginForm.valid) {
-      alert('Login successful! Redirecting...');
-      this.router.navigate(['/dashboard']);
+      const formData = this.loginForm.value;
+      console.log('Login Data:', formData);
+      
+      // Here you would typically call your authentication service
+      // For now, we'll just show a success message and navigate
+      alert(`Login successful as ${formData.userType}! Redirecting...`);
+      
+      // Navigate based on user type
+      if (formData.userType === 'officer') {
+        this.router.navigate(['/officer-dashboard']);
+      } else {
+        this.router.navigate(['/dashboard']);
+      }
     } else {
-      alert('Invalid login details');
+      // Mark all fields as touched to show validation errors
+      Object.keys(this.loginForm.controls).forEach(key => {
+        this.loginForm.get(key)?.markAsTouched();
+      });
+      alert('Please fill in all required fields correctly.');
     }
   }
 }
