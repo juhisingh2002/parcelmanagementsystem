@@ -18,6 +18,7 @@ import { RouterModule } from '@angular/router';
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   hidePassword = true;
+  selectedUserType = 'customer'; // Track selected user type
 
   constructor(private fb: FormBuilder, private router: Router) {}
 
@@ -31,6 +32,21 @@ export class LoginComponent implements OnInit {
       ],
       userType: ['customer', Validators.required] // Default to customer
     });
+
+    // Initialize selectedUserType
+    this.selectedUserType = this.loginForm.get('userType')?.value || 'customer';
+
+    // Subscribe to userType changes to update selectedUserType
+    this.loginForm.get('userType')?.valueChanges.subscribe(value => {
+      this.selectedUserType = value;
+    });
+  }
+
+  // Method to handle user type change
+  onUserTypeChange(): void {
+    this.selectedUserType = this.loginForm.get('userType')?.value || 'customer';
+    // Clear the customerId field when switching user types
+    this.loginForm.get('customerId')?.setValue('');
   }
 
   togglePasswordVisibility(): void {

@@ -4,22 +4,21 @@
     
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
-        <label class="form-label">Customer ID</label>
+        <label class="form-label">{{ selectedUserType === 'officer' ? 'Officer ID' : 'Customer ID' }}</label>
         <input 
           type="text" 
           class="form-input" 
           formControlName="customerId" 
-          placeholder="Customer ID"
+          [placeholder]="selectedUserType === 'officer' ? 'Officer ID' : 'Customer ID'"
           maxlength="20"
         />
         <div class="error-message" *ngIf="loginForm.get('customerId')?.hasError('required') && loginForm.get('customerId')?.touched">
-          Customer ID is required
+          {{ selectedUserType === 'officer' ? 'Officer ID is required' : 'Customer ID is required' }}
         </div>
         <div class="error-message" *ngIf="(loginForm.get('customerId')?.hasError('minlength') || loginForm.get('customerId')?.hasError('maxlength')) && loginForm.get('customerId')?.touched">
           Must be between 5 and 20 characters
         </div>
       </div>
-
       <div class="form-group">
         <label class="form-label">Password</label>
         <div class="password-container">
@@ -47,26 +46,23 @@
           Must have uppercase, lowercase, and special character
         </div>
       </div>
-
       <div class="user-type-selection">
         <label class="radio-option">
-          <input type="radio" name="userType" value="customer" formControlName="userType" />
+          <input type="radio" name="userType" value="customer" formControlName="userType" (change)="onUserTypeChange()" />
           <span class="radio-custom"></span>
           Customer
         </label>
         <label class="radio-option">
-          <input type="radio" name="userType" value="officer" formControlName="userType" />
+          <input type="radio" name="userType" value="officer" formControlName="userType" (change)="onUserTypeChange()" />
           <span class="radio-custom"></span>
           Officer
         </label>
       </div>
-
       <button type="submit" class="login-button" [disabled]="!loginForm.valid">
         Log In
       </button>
     </form>
-
-    <p class="register-link">
+    <p class="register-link" *ngIf="selectedUserType === 'customer'">
       New User? <a routerLink="/register">Register</a>
     </p>
   </div>

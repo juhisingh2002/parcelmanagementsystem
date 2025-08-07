@@ -23,7 +23,7 @@ export class RegisterComponent implements OnInit {
   generatedId = '';
   customerData: any = {};
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private router: Router) {}
 
   ngOnInit(): void {
     this.initializeForm();
@@ -129,6 +129,13 @@ export class RegisterComponent implements OnInit {
     this.onReset();
   }
 
+  // Method to navigate to login page after registration
+  goToLogin(): void {
+    // Reset the form state and navigate to login
+    this.registrationSuccess = false;
+    this.router.navigate(['/login']);
+  }
+
   private generateCustomerId(): string {
     // Generate unique customer ID with timestamp and random number
     const timestamp = Date.now().toString().slice(-6);
@@ -175,4 +182,3 @@ export class RegisterComponent implements OnInit {
   get confirmPassword() { return this.registerForm.get('confirmPassword'); }
   get preferences() { return this.registerForm.get('preferences'); }
 }
-
